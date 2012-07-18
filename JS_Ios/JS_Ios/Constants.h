@@ -9,8 +9,9 @@
 #ifndef JS_Ios_Constants_h
 #define JS_Ios_Constants_h
 
-#define URL_FIRST @"http://wavii.com"
-#define URL_SECOND @"http://google.com"
-#define URL_THIRD @"http://apple.com"
+#define URL_IMG @"http://flashtest.oscdev.com/testimg/test1.html"
+#define URL_CSS @"http://flashtest.oscdev.com/testimg/test2.html"
+#define URL_IMG64 @"http://flashtest.oscdev.com/testimg/test3.html"
+#define URL_CSS64 @"http://flashtest.oscdev.com/testimg/test4.html"
 
 #endif

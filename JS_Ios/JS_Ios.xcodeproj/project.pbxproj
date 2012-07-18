@@ -447,6 +447,7 @@
 				18D9B70E15B5DA2D007707BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18D9B70F15B5DA2D007707BD /* Build configuration list for PBXNativeTarget "JS_IosTests" */ = {
 			isa = XCConfigurationList;
@@ -455,6 +456,7 @@
 				18D9B71115B5DA2D007707BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

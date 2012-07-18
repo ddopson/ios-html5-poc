@@ -12,6 +12,8 @@
 @interface MainViewController : UIViewController <UIWebViewDelegate>
 {
     BOOL _loading;
+    NSTimer *_timer;
+    float _count;
 }
 
 @property (nonatomic, retain) UIActivityIndicatorView *av;
