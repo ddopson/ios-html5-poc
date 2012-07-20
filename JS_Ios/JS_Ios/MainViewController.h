@@ -14,6 +14,7 @@
     BOOL _loading;
     NSTimer *_timer;
     float _count;
+    NSString *_state;
 }
 
 @property (nonatomic, retain) UIActivityIndicatorView *av;

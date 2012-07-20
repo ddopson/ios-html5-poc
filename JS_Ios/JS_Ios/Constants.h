@@ -14,4 +14,9 @@
 #define URL_IMG64 @"http://flashtest.oscdev.com/testimg/test3.html"
 #define URL_CSS64 @"http://flashtest.oscdev.com/testimg/test4.html"
 
+#define STATE_IMG @"Loading image with <img> tag";
+#define STATE_CSS @"Loading image using css";
+#define STATE_IMG64 @"Loading base64 encoded image with <img> tag";
+#define STATE_CSS64 @"Loading base64 encoded image using css";
+
 #endif
