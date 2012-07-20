@@ -31,6 +31,8 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    [self copyResources];
+    
     navcontroller = [[UINavigationController alloc] init];
     _window.rootViewController = navcontroller;
     
@@ -41,6 +43,38 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+- (void)copyResources {
+    
+    NSArray *files_to_transfer = [NSArray arrayWithObjects:@"test1.html", @"test2.html", @"test3.html", @"test4.html", @"img.png", @"img1.png", nil];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString *sourcePath = [[NSBundle mainBundle] resourcePath];
+    NSString *destPath = [NSString stringWithString:documentsDirectory];//[documentsDirectory stringByAppendingPathComponent:@"includes"];
+    
+    NSLog(@"dest=%@", destPath);
+    
+    NSArray* resContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sourcePath error:NULL];
+    
+    for (NSString* obj in resContents){
+        NSError* error;
+        NSLog(@"name=%@", obj);
+        
+        if ([files_to_transfer containsObject:obj]) {
+            
+            NSString *deffile = [destPath stringByAppendingPathComponent:obj];
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:deffile];	
+            if (!fileExists) {
+                if (![[NSFileManager defaultManager] copyItemAtPath:[sourcePath stringByAppendingPathComponent:obj] toPath:[destPath stringByAppendingPathComponent:obj]
+                                                              error:&error])
+                    NSLog(@"Error: %@", error);
+            }
+        }
+    }
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

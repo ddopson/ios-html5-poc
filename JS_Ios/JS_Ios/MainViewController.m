@@ -82,25 +82,46 @@ static int TAG_AIND = 11;
     UISegmentedControl *sc = (UISegmentedControl *)sender;
     UIWebView *webView = (UIWebView *)[self.view viewWithTag:TAG_WEB_VIEW];
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [paths objectAtIndex:0];
+    
 	if (sc.selectedSegmentIndex==0) {
         _state = STATE_IMG;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_IMG] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
-        [webView loadRequest:request];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_IMG];
+        path = [NSString stringWithFormat:@"%@", path];
+        NSData *htmlData = [NSData dataWithContentsOfFile:path];
+        [webView loadData:htmlData MIMEType:@"application/xhtml+xml" textEncodingName:@"UTF-8" baseURL:[NSURL fileURLWithPath:documentsDirectory]];
+//        NSURLRequest *req = [NSURLRequest requestWithURL:url];
+//        [webView loadRequest:req];
+        //        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_IMG] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
+//        [webView loadRequest:request];
     }
     else if (sc.selectedSegmentIndex==1) {
         _state = STATE_CSS;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_CSS] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
-        [webView loadRequest:request];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_CSS];
+        path = [NSString stringWithFormat:@"%@", path];
+        NSData *htmlData = [NSData dataWithContentsOfFile:path];
+        [webView loadData:htmlData MIMEType:@"application/xhtml+xml" textEncodingName:@"UTF-8" baseURL:[NSURL fileURLWithPath:documentsDirectory]];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_CSS] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
+//        [webView loadRequest:request];
     }
     else if (sc.selectedSegmentIndex==2) {
         _state = STATE_IMG64;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_IMG64] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
-        [webView loadRequest:request];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_IMG64];
+        path = [NSString stringWithFormat:@"%@", path];
+        NSData *htmlData = [NSData dataWithContentsOfFile:path];
+        [webView loadData:htmlData MIMEType:@"application/xhtml+xml" textEncodingName:@"UTF-8" baseURL:[NSURL fileURLWithPath:documentsDirectory]];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_IMG64] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
+//        [webView loadRequest:request];
     }
     else if (sc.selectedSegmentIndex==3) {
         _state = STATE_CSS64;
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_CSS64] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
-        [webView loadRequest:request];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_CSS64];
+        path = [NSString stringWithFormat:@"%@", path];
+        NSData *htmlData = [NSData dataWithContentsOfFile:path];
+        [webView loadData:htmlData MIMEType:@"application/xhtml+xml" textEncodingName:@"UTF-8" baseURL:[NSURL fileURLWithPath:documentsDirectory]];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_CSS64] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
+//        [webView loadRequest:request];
     }
 
 }
@@ -108,11 +129,11 @@ static int TAG_AIND = 11;
 -(void) startTimer
 {
     _count = 0.0;
-    _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTick:) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:0.0001 target:self selector:@selector(onTick:) userInfo:nil repeats:YES];
 }
 
 -(void)onTick:(NSTimer *)timer {
-    _count += 0.01;
+    _count += 0.0001;
 //    NSLog(@"%.2f", _count);
 }
 
@@ -147,12 +168,20 @@ static int TAG_AIND = 11;
 
     _loading = NO;
     
-    NSLog(@"load time=%.2f", _count);
+    NSLog(@"load time=%.4f", _count);
+    
+//    NSString *script = @"var n = document.images.length; var names = [];"
+//    "for (var i = 0; i < n; i++) {"
+//    "     names.push(document.images[i].src);"
+//    "} String(names);";
+//    NSString *imgUrls = [webView stringByEvaluatingJavaScriptFromString:script];
+//    
+//    NSLog(@"%@", imgUrls);
     
 	UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[webView viewWithTag:TAG_AIND];
 	[tmpimg removeFromSuperview];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Web loading" message:[NSString stringWithFormat:@"%@.\nLoading time: %.2f", _state, _count] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Web loading" message:[NSString stringWithFormat:@"%@.\nLoading time: %.4f", _state, _count] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     [alert release];
     

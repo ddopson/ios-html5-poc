@@ -9,10 +9,10 @@
 #ifndef JS_Ios_Constants_h
 #define JS_Ios_Constants_h
 
-#define URL_IMG @"http://flashtest.oscdev.com/testimg/test1.html"
-#define URL_CSS @"http://flashtest.oscdev.com/testimg/test2.html"
-#define URL_IMG64 @"http://flashtest.oscdev.com/testimg/test3.html"
-#define URL_CSS64 @"http://flashtest.oscdev.com/testimg/test4.html"
+#define URL_IMG @"test1.html"
+#define URL_CSS @"test2.html"
+#define URL_IMG64 @"test3.html"
+#define URL_CSS64 @"test4.html"
 
 #define STATE_IMG @"Loading image with <img> tag";
 #define STATE_CSS @"Loading image using css";
