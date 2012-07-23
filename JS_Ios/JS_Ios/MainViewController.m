@@ -77,7 +77,7 @@ static int TAG_AIND = 11;
         return;
     }
 
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
     UISegmentedControl *sc = (UISegmentedControl *)sender;
     UIWebView *webView = (UIWebView *)[self.view viewWithTag:TAG_WEB_VIEW];
@@ -85,43 +85,33 @@ static int TAG_AIND = 11;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
     
+    NSString *path = @"";
+    
 	if (sc.selectedSegmentIndex==0) {
         _state = STATE_IMG;
-        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_IMG];
-        path = [NSString stringWithFormat:@"%@", path];
-        NSData *htmlData = [NSData dataWithContentsOfFile:path];
-        [webView loadData:htmlData MIMEType:@"application/xhtml+xml" textEncodingName:@"UTF-8" baseURL:[NSURL fileURLWithPath:documentsDirectory]];
-//        NSURLRequest *req = [NSURLRequest requestWithURL:url];
-//        [webView loadRequest:req];
-        //        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_IMG] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
+        path = [documentsDirectory stringByAppendingPathComponent:URL_IMG];
+
+//        NSString *url = [NSString stringWithFormat:@"http://flashtest.oscdev.com/testimg/%@", URL_IMG];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy: NSURLCacheStorageAllowed timeoutInterval:60];
 //        [webView loadRequest:request];
+//        return;
     }
     else if (sc.selectedSegmentIndex==1) {
         _state = STATE_CSS;
-        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_CSS];
-        path = [NSString stringWithFormat:@"%@", path];
-        NSData *htmlData = [NSData dataWithContentsOfFile:path];
-        [webView loadData:htmlData MIMEType:@"application/xhtml+xml" textEncodingName:@"UTF-8" baseURL:[NSURL fileURLWithPath:documentsDirectory]];
-//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_CSS] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
-//        [webView loadRequest:request];
+        path = [documentsDirectory stringByAppendingPathComponent:URL_CSS];
     }
     else if (sc.selectedSegmentIndex==2) {
         _state = STATE_IMG64;
-        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_IMG64];
-        path = [NSString stringWithFormat:@"%@", path];
-        NSData *htmlData = [NSData dataWithContentsOfFile:path];
-        [webView loadData:htmlData MIMEType:@"application/xhtml+xml" textEncodingName:@"UTF-8" baseURL:[NSURL fileURLWithPath:documentsDirectory]];
-//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_IMG64] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
-//        [webView loadRequest:request];
+        path = [documentsDirectory stringByAppendingPathComponent:URL_IMG64];
     }
     else if (sc.selectedSegmentIndex==3) {
         _state = STATE_CSS64;
-        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_CSS64];
-        path = [NSString stringWithFormat:@"%@", path];
-        NSData *htmlData = [NSData dataWithContentsOfFile:path];
-        [webView loadData:htmlData MIMEType:@"application/xhtml+xml" textEncodingName:@"UTF-8" baseURL:[NSURL fileURLWithPath:documentsDirectory]];
-//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:URL_CSS64] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30];
-//        [webView loadRequest:request];
+        path = [documentsDirectory stringByAppendingPathComponent:URL_CSS64];
+    }
+    
+    if (![path isEqualToString:@""]) {
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:path] cachePolicy: NSURLCacheStorageAllowed timeoutInterval:60];
+        [webView loadRequest:request];
     }
 
 }

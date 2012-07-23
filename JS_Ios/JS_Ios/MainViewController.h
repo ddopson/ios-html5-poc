@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Constants.h"
+#import "SDURLCache.h"
 
 @interface MainViewController : UIViewController <UIWebViewDelegate>
 {

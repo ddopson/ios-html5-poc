@@ -31,7 +31,22 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    NSString *directory = [SDURLCache defaultCachePath];
+    BOOL isDir;
+    NSFileManager *fileManager= [NSFileManager defaultManager]; 
+    if(![fileManager fileExistsAtPath:directory isDirectory:&isDir])
+        if(![fileManager createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL])
+            NSLog(@"Error: Create folder failed %@", directory);
+
     [self copyResources];
+    
+    SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
+                                                        diskCapacity:1024*1024*5 // 5MB disk cache
+                                                        diskPath:[SDURLCache defaultCachePath]];
+    urlCache.minCacheInterval = 60 * 60;
+    urlCache.ignoreMemoryOnlyStoragePolicy = YES;
+    [NSURLCache setSharedURLCache:urlCache];
+    [urlCache release];
     
     navcontroller = [[UINavigationController alloc] init];
     _window.rootViewController = navcontroller;
@@ -44,9 +59,32 @@
     return YES;
 }
 
+- (void)deleteFiles
+{
+    NSFileManager *fileMgr = [[[NSFileManager alloc] init] autorelease];
+    NSError *error = nil;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSArray *directoryContents = [fileMgr contentsOfDirectoryAtPath:documentsDirectory error:&error];
+    if (error == nil) {
+        for (NSString *path in directoryContents) {
+            NSString *fullPath = [documentsDirectory stringByAppendingPathComponent:path];
+            BOOL removeSuccess = [fileMgr removeItemAtPath:fullPath error:&error];
+            if (!removeSuccess) {
+                // Error handling
+            }
+        }
+    } else {
+        // Error handling
+    }    
+}
+
 - (void)copyResources {
     
-    NSArray *files_to_transfer = [NSArray arrayWithObjects:@"test1.html", @"test2.html", @"test3.html", @"test4.html", @"img.png", @"img1.png", nil];
+    [self deleteFiles];
+    
+    NSArray *files_to_transfer = [NSArray arrayWithObjects:@"test1.html", @"test2.html", @"test3.html", @"test4.html", @"img.png", @"img1.png", @"style.css", nil];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -54,13 +92,11 @@
     NSString *sourcePath = [[NSBundle mainBundle] resourcePath];
     NSString *destPath = [NSString stringWithString:documentsDirectory];//[documentsDirectory stringByAppendingPathComponent:@"includes"];
     
-    NSLog(@"dest=%@", destPath);
-    
     NSArray* resContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sourcePath error:NULL];
     
     for (NSString* obj in resContents){
         NSError* error;
-        NSLog(@"name=%@", obj);
+//        NSLog(@"name=%@", obj);
         
         if ([files_to_transfer containsObject:obj]) {
             

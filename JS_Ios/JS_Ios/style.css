@@ -1,0 +1,8 @@
+#image
+{
+    position:relative;
+    width:800x;
+    height:1067px;
+    background-image:url('./img1.png');
+    background-repeat:no-repeat;
+}
