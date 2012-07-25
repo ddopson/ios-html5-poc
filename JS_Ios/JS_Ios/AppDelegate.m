@@ -45,13 +45,14 @@
                                                         diskPath:[SDURLCache defaultCachePath]];
     urlCache.minCacheInterval = 60 * 60;
     urlCache.ignoreMemoryOnlyStoragePolicy = YES;
+    
     [NSURLCache setSharedURLCache:urlCache];
-    [urlCache release];
+//    [urlCache release];
     
     navcontroller = [[UINavigationController alloc] init];
     _window.rootViewController = navcontroller;
     
-    MainViewController *maincontroller = [[MainViewController alloc] init];
+    MenuViewController *maincontroller = [[MenuViewController alloc] init];
     [navcontroller pushViewController:maincontroller animated:YES];
     [maincontroller release];
     

@@ -18,6 +18,9 @@
 		1830C9D815B990FC00C6AED8 /* test3.html in Resources */ = {isa = PBXBuildFile; fileRef = 1830C9D215B990FC00C6AED8 /* test3.html */; };
 		1830C9D915B990FC00C6AED8 /* test4.html in Resources */ = {isa = PBXBuildFile; fileRef = 1830C9D315B990FC00C6AED8 /* test4.html */; };
 		1885BE0F15BD4E0C0006AA2E /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1885BE0E15BD4E0C0006AA2E /* style.css */; };
+		188CBDCB15BFCD4C00EF7E27 /* CGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 188CBDCA15BFCD4C00EF7E27 /* CGlobals.m */; };
+		188CBDD215BFDAF900EF7E27 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188CBDD115BFDAF900EF7E27 /* MenuViewController.m */; };
+		188CBDD515BFDD3900EF7E27 /* ExternalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188CBDD415BFDD3900EF7E27 /* ExternalViewController.m */; };
 		18D9B6DE15B5DA2D007707BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D9B6DD15B5DA2D007707BD /* UIKit.framework */; };
 		18D9B6E015B5DA2D007707BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D9B6DF15B5DA2D007707BD /* Foundation.framework */; };
 		18D9B6E215B5DA2D007707BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D9B6E115B5DA2D007707BD /* CoreGraphics.framework */; };
@@ -57,6 +60,12 @@
 		1830C9D215B990FC00C6AED8 /* test3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test3.html; sourceTree = "<group>"; };
 		1830C9D315B990FC00C6AED8 /* test4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test4.html; sourceTree = "<group>"; };
 		1885BE0E15BD4E0C0006AA2E /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		188CBDC915BFCD4C00EF7E27 /* CGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGlobals.h; sourceTree = "<group>"; };
+		188CBDCA15BFCD4C00EF7E27 /* CGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGlobals.m; sourceTree = "<group>"; };
+		188CBDD015BFDAF900EF7E27 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		188CBDD115BFDAF900EF7E27 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		188CBDD315BFDD3900EF7E27 /* ExternalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalViewController.h; sourceTree = "<group>"; };
+		188CBDD415BFDD3900EF7E27 /* ExternalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalViewController.m; sourceTree = "<group>"; };
 		18D9B6D915B5DA2D007707BD /* JS_Ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JS_Ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D9B6DD15B5DA2D007707BD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		18D9B6DF15B5DA2D007707BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -212,6 +221,10 @@
 			children = (
 				18D9B71915B5DBD4007707BD /* MainViewController.h */,
 				18D9B71A15B5DBD4007707BD /* MainViewController.m */,
+				188CBDD015BFDAF900EF7E27 /* MenuViewController.h */,
+				188CBDD115BFDAF900EF7E27 /* MenuViewController.m */,
+				188CBDD315BFDD3900EF7E27 /* ExternalViewController.h */,
+				188CBDD415BFDD3900EF7E27 /* ExternalViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -220,6 +233,8 @@
 			isa = PBXGroup;
 			children = (
 				18D9B71815B5DAC5007707BD /* Constants.h */,
+				188CBDC915BFCD4C00EF7E27 /* CGlobals.h */,
+				188CBDCA15BFCD4C00EF7E27 /* CGlobals.m */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -342,6 +357,9 @@
 				18D9B71B15B5DBD4007707BD /* MainViewController.m in Sources */,
 				1816FBC215BD6D1F0047750E /* SDURLCache.m in Sources */,
 				1816FBC315BD6D240047750E /* SDCachedURLResponse.m in Sources */,
+				188CBDCB15BFCD4C00EF7E27 /* CGlobals.m in Sources */,
+				188CBDD215BFDAF900EF7E27 /* MenuViewController.m in Sources */,
+				188CBDD515BFDD3900EF7E27 /* ExternalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +454,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JS_Ios/JS_Ios-Prefix.pch";
 				INFOPLIST_FILE = "JS_Ios/JS_Ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -448,7 +466,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JS_Ios/JS_Ios-Prefix.pch";
 				INFOPLIST_FILE = "JS_Ios/JS_Ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

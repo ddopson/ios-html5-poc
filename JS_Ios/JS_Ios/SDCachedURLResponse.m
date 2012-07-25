@@ -48,9 +48,9 @@
     if ((self = [super init]))
     {
         self.response = [[[NSCachedURLResponse alloc] initWithResponse:[coder decodeObjectForKey:@"response"]
-                                                                  data:[coder decodeDataObject]
-                                                              userInfo:[coder decodeObjectForKey:@"userInfo"]
-                                                         storagePolicy:[coder decodeIntForKey:@"storagePolicy"]] autorelease];
+                                                        data:[coder decodeDataObject]
+                                                        userInfo:[coder decodeObjectForKey:@"userInfo"]
+                                                        storagePolicy:[coder decodeIntForKey:@"storagePolicy"]] autorelease];
     }
 
     return self;

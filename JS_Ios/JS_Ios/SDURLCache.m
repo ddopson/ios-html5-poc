@@ -460,7 +460,9 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     }
 
     request = [SDURLCache canonicalRequestForRequest:request];
-
+    
+    NSLog (@"%d", request.cachePolicy);
+    
     if (request.cachePolicy == NSURLRequestReloadIgnoringLocalCacheData
         || request.cachePolicy == NSURLRequestReloadIgnoringLocalAndRemoteCacheData
         || request.cachePolicy == NSURLRequestReloadIgnoringCacheData)
@@ -506,11 +508,13 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 {
     if (disabled) return [super cachedResponseForRequest:request];
 
+    [CGlobals shared].useCache = NO;
     request = [SDURLCache canonicalRequestForRequest:request];
 
     NSCachedURLResponse *memoryResponse = [super cachedResponseForRequest:request];
     if (memoryResponse)
     {
+        [CGlobals shared].useCache = YES;
         return memoryResponse;
     }
 
@@ -545,6 +549,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
                 if (diskResponse)
                 {
+                    [CGlobals shared].useCache = YES;
                     return diskResponse;
                 }
             }
