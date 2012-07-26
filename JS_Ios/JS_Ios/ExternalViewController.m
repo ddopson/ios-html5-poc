@@ -36,7 +36,7 @@ static int TAG_BOTTOM = 12;
     _loading = NO;
     
     [[self navigationController].navigationBar setHidden:NO];
-    self.navigationItem.title = @"Comparative Tests"; 
+    self.navigationItem.title = @"Caching Demo"; 
     
     self.view.backgroundColor = [UIColor whiteColor];
     

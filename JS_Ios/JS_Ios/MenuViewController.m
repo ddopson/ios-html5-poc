@@ -41,7 +41,7 @@
     UIButton *external = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     external.frame = CGRectMake(screenRect.size.width/2 - 100, screenRect.size.height/2 + 5, 200, 50);
     [external addTarget:self action:@selector(onExternalClick:) forControlEvents:UIControlEventTouchUpInside];
-    [external setTitle:@"Comparative Tests" forState:UIControlStateNormal];
+    [external setTitle:@"Caching Demo" forState:UIControlStateNormal];
     [self.view addSubview:external];
     
 //    UIButton *clear = [UIButton buttonWithType:UIButtonTypeRoundedRect];
