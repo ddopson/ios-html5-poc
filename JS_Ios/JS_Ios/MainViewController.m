@@ -37,7 +37,7 @@ static int TAG_AIND = 11;
     _loading = NO;
     
 	[[self navigationController].navigationBar setHidden:NO];
-    self.navigationItem.title = @"Local Resources"; 
+    self.navigationItem.title = @"Resource Types Tests"; 
     
     self.navigationItem.leftBarButtonItem =
 	[[UIBarButtonItem alloc] initWithTitle:@"Back"
@@ -60,7 +60,7 @@ static int TAG_AIND = 11;
 									  ];
 	[bottomMenu addTarget:self action:@selector(menuClicked:) forControlEvents:UIControlEventValueChanged];
 	bottomMenu.momentary = YES;
-	bottomMenu.segmentedControlStyle = UISegmentedControlStyleBordered;
+	bottomMenu.segmentedControlStyle = UISegmentedControlStyleBar;
 	bottomMenu.frame = CGRectMake(0, screenRect.size.height - 70.0f - tabheight, screenRect.size.width, 50.0f);
 	[self.view addSubview:bottomMenu];
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MenuViewController.h"
 #import "SDURLCache.h"
+#import "CGlobals.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

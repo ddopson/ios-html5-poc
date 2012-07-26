@@ -21,4 +21,9 @@
 #define STATE_IMG64 @"Loading base64 encoded image with <img> tag";
 #define STATE_CSS64 @"Loading base64 encoded image using css";
 
+#define STATE_EXT @"Loading external url (with standard caching)";
+#define STATE_LOCAL @"Loading local files";
+#define STATE_PREDEFINED @"Loading pre-caching url";
+
+
 #endif

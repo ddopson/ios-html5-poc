@@ -31,13 +31,19 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
+    /*
     NSString *directory = [SDURLCache defaultCachePath];
     BOOL isDir;
     NSFileManager *fileManager= [NSFileManager defaultManager]; 
     if(![fileManager fileExistsAtPath:directory isDirectory:&isDir])
         if(![fileManager createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL])
             NSLog(@"Error: Create folder failed %@", directory);
-
+     */
+    
+    [CGlobals shared].substitutionPaths = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           @"foo", @"myserver.com",
+                                           nil];
+    
     [self copyResources];
     
     SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
@@ -79,16 +85,49 @@
     } else {
         // Error handling
     }    
+    /*
+    NSArray *fooContents = [fileMgr contentsOfDirectoryAtPath:[documentsDirectory stringByAppendingPathComponent:@"foo"] error:&error];
+    if (error == nil) {
+        for (NSString *path in fooContents) {
+            NSString *fullPath = [documentsDirectory stringByAppendingPathComponent:path];
+            BOOL removeSuccess = [fileMgr removeItemAtPath:fullPath error:&error];
+            if (!removeSuccess) {
+                // Error handling
+            }
+        }
+    } else {
+        // Error handling
+    } 
+     */
 }
 
 - (void)copyResources {
     
     [self deleteFiles];
     
-    NSArray *files_to_transfer = [NSArray arrayWithObjects:@"test1.html", @"test2.html", @"test3.html", @"test4.html", @"img.png", @"img1.png", @"style.css", nil];
-    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    [CGlobals shared].docDurectory = [NSString stringWithString:documentsDirectory];
+    
+    NSString *directory = [documentsDirectory stringByAppendingPathComponent:@"foo"];
+    BOOL isDir;
+    NSFileManager *fileManager= [NSFileManager defaultManager]; 
+    if(![fileManager fileExistsAtPath:directory isDirectory:&isDir])
+    {
+        if(![fileManager createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL])
+        {
+            NSLog(@"Error: Create folder failed %@", directory);
+        }
+    }
+
+    
+    NSArray *files_to_transfer = [NSArray arrayWithObjects:@"test1.html", @"test2.html", @"test3.html", @"test4.html", @"img.png", @"img1.png", @"style.css", nil];
+
+    NSArray *subst_files_to_transfer = [NSArray arrayWithObjects:@"index.html", @"img1.png", @"style.css", nil];
+    
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//	NSString *documentsDirectory = [paths objectAtIndex:0];
     
     NSString *sourcePath = [[NSBundle mainBundle] resourcePath];
     NSString *destPath = [NSString stringWithString:documentsDirectory];//[documentsDirectory stringByAppendingPathComponent:@"includes"];
@@ -110,6 +149,26 @@
             }
         }
     }
+    
+    destPath = [NSString stringWithString:[documentsDirectory stringByAppendingPathComponent:@"foo"]];//[documentsDirectory 
+    NSArray* subResContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:sourcePath error:NULL];
+    for (NSString* obj in subResContents){
+        NSError* error;
+        //        NSLog(@"name=%@", obj);
+        
+        if ([subst_files_to_transfer containsObject:obj]) {
+            
+            NSString *deffile = [destPath stringByAppendingPathComponent:obj];
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:deffile];	
+            if (!fileExists) {
+                if (![[NSFileManager defaultManager] copyItemAtPath:[sourcePath stringByAppendingPathComponent:obj] toPath:[destPath stringByAppendingPathComponent:obj]
+                                                              error:&error])
+                    NSLog(@"Error: %@", error);
+            }
+        }
+    }
+
+    
 }
 
 

@@ -17,6 +17,7 @@
 		1830C9D715B990FC00C6AED8 /* test2.html in Resources */ = {isa = PBXBuildFile; fileRef = 1830C9D115B990FC00C6AED8 /* test2.html */; };
 		1830C9D815B990FC00C6AED8 /* test3.html in Resources */ = {isa = PBXBuildFile; fileRef = 1830C9D215B990FC00C6AED8 /* test3.html */; };
 		1830C9D915B990FC00C6AED8 /* test4.html in Resources */ = {isa = PBXBuildFile; fileRef = 1830C9D315B990FC00C6AED8 /* test4.html */; };
+		1884975B15C1213800D2D7BA /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1884975A15C1213800D2D7BA /* index.html */; };
 		1885BE0F15BD4E0C0006AA2E /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1885BE0E15BD4E0C0006AA2E /* style.css */; };
 		188CBDCB15BFCD4C00EF7E27 /* CGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 188CBDCA15BFCD4C00EF7E27 /* CGlobals.m */; };
 		188CBDD215BFDAF900EF7E27 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188CBDD115BFDAF900EF7E27 /* MenuViewController.m */; };
@@ -59,6 +60,7 @@
 		1830C9D115B990FC00C6AED8 /* test2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test2.html; sourceTree = "<group>"; };
 		1830C9D215B990FC00C6AED8 /* test3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test3.html; sourceTree = "<group>"; };
 		1830C9D315B990FC00C6AED8 /* test4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test4.html; sourceTree = "<group>"; };
+		1884975A15C1213800D2D7BA /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1885BE0E15BD4E0C0006AA2E /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		188CBDC915BFCD4C00EF7E27 /* CGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGlobals.h; sourceTree = "<group>"; };
 		188CBDCA15BFCD4C00EF7E27 /* CGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGlobals.m; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		1830C9CC15B990AD00C6AED8 /* includes */ = {
 			isa = PBXGroup;
 			children = (
+				1884975A15C1213800D2D7BA /* index.html */,
 				1830C9CE15B990FC00C6AED8 /* img.png */,
 				1830C9CF15B990FC00C6AED8 /* img1.png */,
 				1830C9D015B990FC00C6AED8 /* test1.html */,
@@ -317,6 +320,7 @@
 				1830C9D815B990FC00C6AED8 /* test3.html in Resources */,
 				1830C9D915B990FC00C6AED8 /* test4.html in Resources */,
 				1885BE0F15BD4E0C0006AA2E /* style.css in Resources */,
+				1884975B15C1213800D2D7BA /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +426,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -440,7 +444,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -454,7 +458,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JS_Ios/JS_Ios-Prefix.pch";
 				INFOPLIST_FILE = "JS_Ios/JS_Ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -466,7 +470,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JS_Ios/JS_Ios-Prefix.pch";
 				INFOPLIST_FILE = "JS_Ios/JS_Ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

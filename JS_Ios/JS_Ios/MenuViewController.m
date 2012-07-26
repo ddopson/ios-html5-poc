@@ -35,20 +35,20 @@
     UIButton *local = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     local.frame = CGRectMake(screenRect.size.width/2 - 100, screenRect.size.height/2 - 55, 200, 50);
     [local addTarget:self action:@selector(onLocalClick:) forControlEvents:UIControlEventTouchUpInside];
-    [local setTitle:@"Local Resources" forState:UIControlStateNormal];
+    [local setTitle:@"Resource Types Tests" forState:UIControlStateNormal];
     [self.view addSubview:local];
     
     UIButton *external = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     external.frame = CGRectMake(screenRect.size.width/2 - 100, screenRect.size.height/2 + 5, 200, 50);
     [external addTarget:self action:@selector(onExternalClick:) forControlEvents:UIControlEventTouchUpInside];
-    [external setTitle:@"External Resources" forState:UIControlStateNormal];
+    [external setTitle:@"Comparative Tests" forState:UIControlStateNormal];
     [self.view addSubview:external];
     
-    UIButton *clear = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    clear.frame = CGRectMake(screenRect.size.width/2 - 100, screenRect.size.height - 100, 200, 50);
-    [clear addTarget:self action:@selector(onClearClick:) forControlEvents:UIControlEventTouchUpInside];
-    [clear setTitle:@"Clear Cache" forState:UIControlStateNormal];
-    [self.view addSubview:clear];
+//    UIButton *clear = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    clear.frame = CGRectMake(screenRect.size.width/2 - 100, screenRect.size.height - 100, 200, 50);
+//    [clear addTarget:self action:@selector(onClearClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [clear setTitle:@"Clear Cache" forState:UIControlStateNormal];
+//    [self.view addSubview:clear];
 
     
 }

@@ -14,6 +14,7 @@
 
 static int TAG_WEB_VIEW = 10;
 static int TAG_AIND = 11;
+static int TAG_BOTTOM = 12;
 
 @implementation ExternalViewController
 
@@ -35,7 +36,9 @@ static int TAG_AIND = 11;
     _loading = NO;
     
     [[self navigationController].navigationBar setHidden:NO];
-    self.navigationItem.title = @"External Resources"; 
+    self.navigationItem.title = @"Comparative Tests"; 
+    
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem =
 	[[UIBarButtonItem alloc] initWithTitle:@"Back"
@@ -54,11 +57,12 @@ static int TAG_AIND = 11;
     [self.view addSubview:webView];
     
     UISegmentedControl *bottomMenu = [[UISegmentedControl alloc] initWithItems:
-									  [NSArray arrayWithObjects:@"Img", @"CSS", @"Img-64", @"CSS-64", nil]
+									  [NSArray arrayWithObjects:@"URL", @"Local", @"Pre-Defined", @"Clear", nil]
 									  ];
 	[bottomMenu addTarget:self action:@selector(menuClicked:) forControlEvents:UIControlEventValueChanged];
 	bottomMenu.momentary = YES;
-	bottomMenu.segmentedControlStyle = UISegmentedControlStyleBordered;
+    bottomMenu.tag = TAG_BOTTOM;
+	bottomMenu.segmentedControlStyle = UISegmentedControlStyleBar;
 	bottomMenu.frame = CGRectMake(0, screenRect.size.height - 70.0f - tabheight, screenRect.size.width, 50.0f);
 	[self.view addSubview:bottomMenu];
     
@@ -77,6 +81,29 @@ static int TAG_AIND = 11;
 
 #pragma Custom functions
 
+-(void)resetWebView
+{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    float tabheight = self.navigationController.navigationBar.frame.size.height;
+    
+    UIWebView *wv = (UIWebView*)[self.view viewWithTag:TAG_WEB_VIEW];
+    {
+        if (wv != nil) {
+            [wv removeFromSuperview];
+        }
+    }
+    
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height - 50 - tabheight)];
+    //    webView.scalesPageToFit = YES;
+    webView.tag = TAG_WEB_VIEW;
+	webView.delegate = self;
+    
+    [self.view addSubview:webView];
+
+    UISegmentedControl *bottomMenu = (UISegmentedControl *)[self.view viewWithTag:TAG_BOTTOM];
+    [self.view bringSubviewToFront:bottomMenu];
+}
+
 -(IBAction)handleBack:(id)sender
 {
     [[self navigationController].navigationBar setHidden:YES];
@@ -91,31 +118,59 @@ static int TAG_AIND = 11;
     }
     
     //    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+
+    self.view.backgroundColor = [UIColor whiteColor];
     
+    [self resetWebView];
     UISegmentedControl *sc = (UISegmentedControl *)sender;
     UIWebView *webView = (UIWebView *)[self.view viewWithTag:TAG_WEB_VIEW];
+    [webView setHidden:NO];
     
     NSString *url = @"http://flashtest.oscdev.com/testimg/";
     
 	if (sc.selectedSegmentIndex==0) {
-        _state = STATE_IMG;
-        url = [url stringByAppendingString:URL_IMG];
+        _state = STATE_EXT;
+        url = [url stringByAppendingString:@"test2.html"];
+//        url = [@"http://wavii.com/" stringByAppendingString:@""];
     }
     else if (sc.selectedSegmentIndex==1) {
-        _state = STATE_CSS;
-        url = [url stringByAppendingString:URL_CSS];
+        
+        _state = STATE_LOCAL;
+//        url = [url stringByAppendingString:URL_CSS];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_CSS];
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:path] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
+        [webView loadRequest:request];
+        return;
     }
     else if (sc.selectedSegmentIndex==2) {
-        _state = STATE_IMG64;
-        url = [url stringByAppendingString:URL_IMG64];
+        UIWebView *webView = (UIWebView *)[self.view viewWithTag:TAG_WEB_VIEW];
+        _state = STATE_PREDEFINED;
+        url = [@"http://myserver.com/" stringByAppendingString:@"index.html"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy: NSURLRequestReturnCacheDataDontLoad timeoutInterval:60];
+        [webView loadRequest:request];
+        return;
     }
     else if (sc.selectedSegmentIndex==3) {
-        _state = STATE_CSS64;
-        url = [url stringByAppendingString:URL_CSS64];
+        [(SDURLCache*)[NSURLCache sharedURLCache] removeAllCachedResponses];
+
+        self.view.backgroundColor = [UIColor blackColor];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:[NSString stringWithString:@"Local Cache Cleared"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        [self resetWebView];
+        UIWebView *webView = (UIWebView *)[self.view viewWithTag:TAG_WEB_VIEW];
+        [webView setHidden:YES];
+
+        return;
     }
     
     if (![url isEqualToString:@""]) {
         
+        UIWebView *webView = (UIWebView *)[self.view viewWithTag:TAG_WEB_VIEW];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
         [webView loadRequest:request];
     }
@@ -165,14 +220,6 @@ static int TAG_AIND = 11;
     _loading = NO;
     
     NSLog(@"load time=%.4f", _count);
-    
-    //    NSString *script = @"var n = document.images.length; var names = [];"
-    //    "for (var i = 0; i < n; i++) {"
-    //    "     names.push(document.images[i].src);"
-    //    "} String(names);";
-    //    NSString *imgUrls = [webView stringByEvaluatingJavaScriptFromString:script];
-    //    
-    //    NSLog(@"%@", imgUrls);
     
 	UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[webView viewWithTag:TAG_AIND];
 	[tmpimg removeFromSuperview];

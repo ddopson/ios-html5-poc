@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SDURLCache.h"
 
 @interface ExternalViewController : UIViewController <UIWebViewDelegate>
 {

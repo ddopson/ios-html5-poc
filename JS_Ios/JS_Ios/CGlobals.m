@@ -12,7 +12,7 @@ static CGlobals *__instance = nil;
 
 @implementation CGlobals
 
-@synthesize useCache;
+@synthesize useCache, substitutionPaths, docDurectory;
 
 + (CGlobals *) shared
 {

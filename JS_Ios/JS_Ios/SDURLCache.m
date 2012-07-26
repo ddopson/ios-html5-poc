@@ -453,6 +453,14 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
+    NSString *baseString = [[request URL] host];
+	NSString *substitutionFileName = [[CGlobals shared].substitutionPaths objectForKey:baseString];
+    
+    if (substitutionFileName)
+	{
+        return;
+    }
+
     if (disabled)
     {
         [super storeCachedResponse:cachedResponse forRequest:request];
@@ -506,6 +514,34 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
+    NSString *pathString = [[request URL] absoluteString];
+    NSString *baseString = [[request URL] host];
+    NSString *relativePath = [[request URL] path];
+	NSString *substitutionFileName = [[CGlobals shared].substitutionPaths objectForKey:baseString];
+    
+    if (substitutionFileName)
+	{
+        NSString *directory = [NSString stringWithFormat:@"%@", [CGlobals shared].docDurectory];
+        directory = [directory stringByAppendingFormat:@"/%@", substitutionFileName];
+
+        NSString *substitutionFilePath = [directory stringByAppendingString: [NSString stringWithFormat:@"%@", relativePath]];
+        
+        NSData *data = [NSData dataWithContentsOfFile:substitutionFilePath];
+
+        NSURLResponse *response =
+		[[[NSURLResponse alloc]
+          initWithURL:[request URL]
+          MIMEType:[self mimeTypeForPath:pathString]
+          expectedContentLength:[data length]
+          textEncodingName:nil]
+         autorelease];
+        NSCachedURLResponse *cachedResponse =
+		[[[NSCachedURLResponse alloc] initWithResponse:response data:data] autorelease];
+        
+        [CGlobals shared].useCache = YES;
+        return cachedResponse;
+    }
+    
     if (disabled) return [super cachedResponseForRequest:request];
 
     [CGlobals shared].useCache = NO;
@@ -625,6 +661,36 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     }
     return NO;
 }
+
+- (NSString *)mimeTypeForPath:(NSString *)originalPath
+{
+	//
+	// Current code only substitutes PNG images
+	//
+    
+    NSArray *path = [originalPath componentsSeparatedByString: @"."];
+    NSString *ext = [path objectAtIndex:[path count]-1];
+    if ([ext isEqualToString:@"png"])
+    {
+        return @"image/png";	
+    }
+    else if ([ext isEqualToString:@"jpg"] || [ext isEqualToString:@"jpeg"]) {
+        return @"image/jpeg";	
+    }
+    else if ([ext isEqualToString:@"html"] || [ext isEqualToString:@"htm"]) {
+        return @"text/html";	
+    }
+    else if ([ext isEqualToString:@"js"]) {
+        return @"text/javascript";	
+    }
+    else if ([ext isEqualToString:@"css"]) {
+        return @"text/css";	
+    }
+    
+    return @"";
+    
+}
+
 
 #pragma mark NSObject
 

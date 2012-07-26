@@ -14,6 +14,8 @@
 }
 
 @property BOOL useCache;
+@property (retain, nonatomic) NSMutableDictionary *substitutionPaths;
+@property (retain, nonatomic) NSString *docDurectory;
 
 + (CGlobals *) shared;
 
