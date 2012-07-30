@@ -148,7 +148,7 @@ static int TAG_BOTTOM = 12;
     else if (sc.selectedSegmentIndex==2) {
         UIWebView *webView = (UIWebView *)[self.view viewWithTag:TAG_WEB_VIEW];
         _state = STATE_PREDEFINED;
-        url = [@"http://myserver.com/" stringByAppendingString:@"index.html"];
+        url = [@"http://wavii.com/"];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy: NSURLRequestReturnCacheDataDontLoad timeoutInterval:60];
         [webView loadRequest:request];
         return;

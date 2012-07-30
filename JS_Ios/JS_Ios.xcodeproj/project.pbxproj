@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D7A5F5615C23291007759F3 /* wavii_cached in Resources */ = {isa = PBXBuildFile; fileRef = 0D7A5F5515C23291007759F3 /* wavii_cached */; };
 		1816FBC015BD6D1B0047750E /* SDCachedURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816FBBD15BD6D1B0047750E /* SDCachedURLResponse.m */; };
 		1816FBC115BD6D1B0047750E /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816FBBF15BD6D1B0047750E /* SDURLCache.m */; };
 		1816FBC215BD6D1F0047750E /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816FBBF15BD6D1B0047750E /* SDURLCache.m */; };
@@ -17,7 +18,6 @@
 		1830C9D715B990FC00C6AED8 /* test2.html in Resources */ = {isa = PBXBuildFile; fileRef = 1830C9D115B990FC00C6AED8 /* test2.html */; };
 		1830C9D815B990FC00C6AED8 /* test3.html in Resources */ = {isa = PBXBuildFile; fileRef = 1830C9D215B990FC00C6AED8 /* test3.html */; };
 		1830C9D915B990FC00C6AED8 /* test4.html in Resources */ = {isa = PBXBuildFile; fileRef = 1830C9D315B990FC00C6AED8 /* test4.html */; };
-		1884975B15C1213800D2D7BA /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1884975A15C1213800D2D7BA /* index.html */; };
 		1885BE0F15BD4E0C0006AA2E /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 1885BE0E15BD4E0C0006AA2E /* style.css */; };
 		188CBDCB15BFCD4C00EF7E27 /* CGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 188CBDCA15BFCD4C00EF7E27 /* CGlobals.m */; };
 		188CBDD215BFDAF900EF7E27 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188CBDD115BFDAF900EF7E27 /* MenuViewController.m */; };
@@ -50,18 +50,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D7A5F5515C23291007759F3 /* wavii_cached */ = {isa = PBXFileReference; lastKnownFileType = folder; name = wavii_cached; path = ../../web/wavii_cached; sourceTree = "<group>"; };
 		1816FBBC15BD6D1B0047750E /* SDCachedURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCachedURLResponse.h; sourceTree = "<group>"; };
 		1816FBBD15BD6D1B0047750E /* SDCachedURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCachedURLResponse.m; sourceTree = "<group>"; };
 		1816FBBE15BD6D1B0047750E /* SDURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDURLCache.h; sourceTree = "<group>"; };
 		1816FBBF15BD6D1B0047750E /* SDURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDURLCache.m; sourceTree = "<group>"; };
-		1830C9CE15B990FC00C6AED8 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
-		1830C9CF15B990FC00C6AED8 /* img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img1.png; sourceTree = "<group>"; };
-		1830C9D015B990FC00C6AED8 /* test1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test1.html; sourceTree = "<group>"; };
-		1830C9D115B990FC00C6AED8 /* test2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test2.html; sourceTree = "<group>"; };
-		1830C9D215B990FC00C6AED8 /* test3.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test3.html; sourceTree = "<group>"; };
-		1830C9D315B990FC00C6AED8 /* test4.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test4.html; sourceTree = "<group>"; };
-		1884975A15C1213800D2D7BA /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		1885BE0E15BD4E0C0006AA2E /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		1830C9CE15B990FC00C6AED8 /* img.png */ = {isa = PBXFileReference; explicitFileType = text; path = img.png; sourceTree = "<group>"; };
+		1830C9CF15B990FC00C6AED8 /* img1.png */ = {isa = PBXFileReference; explicitFileType = text; path = img1.png; sourceTree = "<group>"; };
+		1830C9D015B990FC00C6AED8 /* test1.html */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = test1.html; sourceTree = "<group>"; };
+		1830C9D115B990FC00C6AED8 /* test2.html */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = test2.html; sourceTree = "<group>"; };
+		1830C9D215B990FC00C6AED8 /* test3.html */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = test3.html; sourceTree = "<group>"; };
+		1830C9D315B990FC00C6AED8 /* test4.html */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = test4.html; sourceTree = "<group>"; };
+		1885BE0E15BD4E0C0006AA2E /* style.css */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = style.css; sourceTree = "<group>"; };
 		188CBDC915BFCD4C00EF7E27 /* CGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGlobals.h; sourceTree = "<group>"; };
 		188CBDCA15BFCD4C00EF7E27 /* CGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGlobals.m; sourceTree = "<group>"; };
 		188CBDD015BFDAF900EF7E27 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 		1830C9CC15B990AD00C6AED8 /* includes */ = {
 			isa = PBXGroup;
 			children = (
-				1884975A15C1213800D2D7BA /* index.html */,
+				0D7A5F5515C23291007759F3 /* wavii_cached */,
 				1830C9CE15B990FC00C6AED8 /* img.png */,
 				1830C9CF15B990FC00C6AED8 /* img1.png */,
 				1830C9D015B990FC00C6AED8 /* test1.html */,
@@ -320,7 +320,7 @@
 				1830C9D815B990FC00C6AED8 /* test3.html in Resources */,
 				1830C9D915B990FC00C6AED8 /* test4.html in Resources */,
 				1885BE0F15BD4E0C0006AA2E /* style.css in Resources */,
-				1884975B15C1213800D2D7BA /* index.html in Resources */,
+				0D7A5F5615C23291007759F3 /* wavii_cached in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

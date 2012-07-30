@@ -514,37 +514,9 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
-    NSString *pathString = [[request URL] absoluteString];
-    NSString *baseString = [[request URL] host];
-    NSString *relativePath = [[request URL] path];
-	NSString *substitutionFileName = [[CGlobals shared].substitutionPaths objectForKey:baseString];
-    
-    if (substitutionFileName)
-	{
-        NSString *directory = [NSString stringWithFormat:@"%@", [CGlobals shared].docDurectory];
-        directory = [directory stringByAppendingFormat:@"/%@", substitutionFileName];
-
-        NSString *substitutionFilePath = [directory stringByAppendingString: [NSString stringWithFormat:@"%@", relativePath]];
-        
-        NSData *data = [NSData dataWithContentsOfFile:substitutionFilePath];
-
-        NSURLResponse *response =
-		[[[NSURLResponse alloc]
-          initWithURL:[request URL]
-          MIMEType:[self mimeTypeForPath:pathString]
-          expectedContentLength:[data length]
-          textEncodingName:nil]
-         autorelease];
-        NSCachedURLResponse *cachedResponse =
-		[[[NSCachedURLResponse alloc] initWithResponse:response data:data] autorelease];
-        
-        [CGlobals shared].useCache = YES;
-        return cachedResponse;
-    }
     
     if (disabled) return [super cachedResponseForRequest:request];
 
-    [CGlobals shared].useCache = NO;
     request = [SDURLCache canonicalRequestForRequest:request];
 
     NSCachedURLResponse *memoryResponse = [super cachedResponseForRequest:request];
@@ -554,44 +526,47 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
         return memoryResponse;
     }
 
-    NSString *cacheKey = [SDURLCache cacheKeyForURL:request.URL];
-
-    // NOTE: We don't handle expiration here as even staled cache data is necessary for NSURLConnection to handle cache revalidation.
-    //       Staled cache data is also needed for cachePolicies which force the use of the cache.
-    @synchronized(self.diskCacheInfo)
-    {
-        NSMutableDictionary *accesses = [self.diskCacheInfo objectForKey:kSDURLCacheInfoAccessesKey];
-        if ([accesses objectForKey:cacheKey]) // OPTI: Check for cache-hit in a in-memory dictionary before hitting the file system
-        {
-            // load wrapper
-            SDCachedURLResponse *diskResponseWrapper = [NSKeyedUnarchiver unarchiveObjectWithFile:[diskCachePath stringByAppendingPathComponent:cacheKey]];
-            NSCachedURLResponse *diskResponse = diskResponseWrapper.response;
-
-            if (diskResponse)
-            {
-                // OPTI: Log the entry last access time for LRU cache eviction algorithm but don't save the dictionary
-                //       on disk now in order to save IO and time
-                [accesses setObject:[NSDate date] forKey:cacheKey];
-                diskCacheInfoDirty = YES;
-
-                // OPTI: Store the response to memory cache for potential future requests
-                [super storeCachedResponse:diskResponse forRequest:request];
-
-                // SRK: Work around an interesting retainCount bug in CFNetwork on iOS << 3.2.
-                if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iPhoneOS_3_2)
-                {
-                    diskResponse = [super cachedResponseForRequest:request];
-                }
-
-                if (diskResponse)
-                {
-                    [CGlobals shared].useCache = YES;
-                    return diskResponse;
-                }
-            }
-        }
+    NSString *url = [[request URL] absoluteString];
+    
+    if([url hasPrefix:@"data:"]) {
+        return nil;
     }
-
+    
+    
+    NSString *file = [url stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+    file = [file stringByReplacingOccurrencesOfString:@"myserver.com/" withString:@""];
+    file = [file stringByReplacingOccurrencesOfString:@"www.cachedwavii.com/" withString:@""];
+    file = [file stringByReplacingOccurrencesOfString:@"cachedwavii.com/" withString:@""];
+    file = [file stringByReplacingOccurrencesOfString:@"/" withString:@"__"];
+    file = [file stringByReplacingOccurrencesOfString:@"." withString:@"__"];
+    
+    NSRange range = [file rangeOfString:@"?"];
+    if (range.location < [file length]) {
+        file = [file substringToIndex:range.location];
+    }
+    
+    NSString *absfile = [NSString stringWithFormat:@"%@/wavii_cached/%@", [[NSBundle mainBundle] resourcePath], file];
+    NSData *data = [NSData dataWithContentsOfFile:absfile];
+    if ([data length] == 0) {
+        NSLog(@"ERROR_LOADING_FILE: url '%@'   ==>   '%@' (%d bytes)", url, absfile, [data length]);
+    } else {
+        NSLog(@"Loaded '%@' (%d bytes)", file, [data length]);
+    }
+        
+        NSURLResponse *response =
+		[[[NSURLResponse alloc]
+          initWithURL:[request URL]
+          MIMEType:[self mimeTypeForPath:absfile]
+          expectedContentLength:[data length]
+          textEncodingName:nil]
+         autorelease];
+        NSCachedURLResponse *cachedResponse =
+		[[[NSCachedURLResponse alloc] initWithResponse:response data:data] autorelease];
+        
+        [CGlobals shared].useCache = YES;
+        return cachedResponse;
+  
+    
     return nil;
 }
 
