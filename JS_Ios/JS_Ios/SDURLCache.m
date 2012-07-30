@@ -70,7 +70,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 + (NSString *)cacheKeyForURL:(NSURL *)url
 {
-    NSLog(@"%@ ,%@", url.path, url.lastPathComponent);
+//    NSLog(@"%@ ,%@", url.path, url.lastPathComponent);
     return url.lastPathComponent;
     
     const char *str = [url.absoluteString UTF8String];
@@ -363,6 +363,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     NSString *cacheKey = [SDURLCache cacheKeyForURL:request.URL];
     NSString *cacheFilePath = [diskCachePath stringByAppendingPathComponent:cacheKey];
 
+    NSLog(@"storeToDisk: filePath=%@", cacheFilePath);
+    
     [self createDiskCachePath];
 
     // Archive the cached response on disk
@@ -466,13 +468,12 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
     if (disabled)
     {
+        NSLog(@"storeCachedResponse for IOS5");
         [super storeCachedResponse:cachedResponse forRequest:request];
         return;
     }
 
     request = [SDURLCache canonicalRequestForRequest:request];
-    
-    NSLog (@"%d", request.cachePolicy);
     
     if (request.cachePolicy == NSURLRequestReloadIgnoringLocalCacheData
         || request.cachePolicy == NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -638,6 +639,8 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (void)removeAllCachedResponses
 {
+    NSLog(@"removeAllCachedResponses");
+    
     [super removeAllCachedResponses];
     
     if (disabled) return;
