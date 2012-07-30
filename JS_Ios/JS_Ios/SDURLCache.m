@@ -431,7 +431,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     // iOS 5 implements disk caching. SDURLCache then disables itself at runtime if the current device OS
     // version is 5 or greater
     NSArray *version = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
-    disabled = [[version objectAtIndex:0] intValue] >= 6;
+    disabled = [[version objectAtIndex:0] intValue] >= 5;
 
     if (disabled)
     {
