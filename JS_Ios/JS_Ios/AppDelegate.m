@@ -31,20 +31,11 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    /*
-    NSString *directory = [SDURLCache defaultCachePath];
-    BOOL isDir;
-    NSFileManager *fileManager= [NSFileManager defaultManager]; 
-    if(![fileManager fileExistsAtPath:directory isDirectory:&isDir])
-        if(![fileManager createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:NULL])
-            NSLog(@"Error: Create folder failed %@", directory);
-     */
-    
     [CGlobals shared].substitutionPaths = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                            @"foo", @"myserver.com",
                                            nil];
     
-    [self copyResources];
+//    [self copyResources];
     
     SDURLCache *urlCache = [[SDURLCache alloc] initWithMemoryCapacity:1024*1024   // 1MB mem cache
                                                         diskCapacity:1024*1024*5 // 5MB disk cache
@@ -66,6 +57,7 @@
     return YES;
 }
 
+/*
 - (void)deleteFiles
 {
     NSFileManager *fileMgr = [[[NSFileManager alloc] init] autorelease];
@@ -85,7 +77,7 @@
     } else {
         // Error handling
     }    
-    /*
+    
     NSArray *fooContents = [fileMgr contentsOfDirectoryAtPath:[documentsDirectory stringByAppendingPathComponent:@"foo"] error:&error];
     if (error == nil) {
         for (NSString *path in fooContents) {
@@ -98,7 +90,7 @@
     } else {
         // Error handling
     } 
-     */
+     
 }
 
 - (void)copyResources {
@@ -170,6 +162,8 @@
 
     
 }
+ 
+ */
 
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -137,9 +137,12 @@ static int TAG_BOTTOM = 12;
         
         _state = STATE_LOCAL;
 //        url = [url stringByAppendingString:URL_CSS];
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_CSS];
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//        NSString *documentsDirectory = [paths objectAtIndex:0];
+//        NSString *path = [documentsDirectory stringByAppendingPathComponent:URL_CSS];
+        
+        NSString *path = [[NSBundle mainBundle] pathForResource:[URL_CSS stringByDeletingPathExtension]
+                                                         ofType:[URL_CSS pathExtension]];
         
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:path] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
         [webView loadRequest:request];
@@ -158,7 +161,7 @@ static int TAG_BOTTOM = 12;
 
         self.view.backgroundColor = [UIColor blackColor];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:[NSString stringWithString:@"Local Cache Cleared"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Local Cache Cleared" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         [alert release];
         [self resetWebView];

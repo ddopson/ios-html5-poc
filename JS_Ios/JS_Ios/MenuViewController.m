@@ -89,7 +89,7 @@
 {
     [(SDURLCache*)[NSURLCache sharedURLCache] removeAllCachedResponses];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:[NSString stringWithString:@"Local Cache Cleared"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Local Cache Cleared" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     [alert release];
 

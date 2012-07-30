@@ -70,6 +70,9 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 + (NSString *)cacheKeyForURL:(NSURL *)url
 {
+    NSLog(@"%@ ,%@", url.path, url.lastPathComponent);
+    return url.lastPathComponent;
+    
     const char *str = [url.absoluteString UTF8String];
     unsigned char r[CC_MD5_DIGEST_LENGTH];
     CC_MD5(str, strlen(str), r);
@@ -426,7 +429,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     // iOS 5 implements disk caching. SDURLCache then disables itself at runtime if the current device OS
     // version is 5 or greater
     NSArray *version = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
-    disabled = [[version objectAtIndex:0] intValue] >= 5;
+    disabled = [[version objectAtIndex:0] intValue] >= 6;
 
     if (disabled)
     {
@@ -514,17 +517,28 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
+    [CGlobals shared].useCache = NO;
+
     NSString *pathString = [[request URL] absoluteString];
+    NSLog(@"cachedResponseForRequest: url=%@", pathString);
     NSString *baseString = [[request URL] host];
-    NSString *relativePath = [[request URL] path];
+    NSLog(@"cachedResponseForRequest: host=%@", baseString);
+//    NSString *relativePath = [[request URL] path];
 	NSString *substitutionFileName = [[CGlobals shared].substitutionPaths objectForKey:baseString];
     
     if (substitutionFileName)
 	{
-        NSString *directory = [NSString stringWithFormat:@"%@", [CGlobals shared].docDurectory];
-        directory = [directory stringByAppendingFormat:@"/%@", substitutionFileName];
+//        NSString *directory = [NSString stringWithFormat:@"%@", [CGlobals shared].docDurectory];
+//        directory = [directory stringByAppendingFormat:@"/%@", substitutionFileName];
 
-        NSString *substitutionFilePath = [directory stringByAppendingString: [NSString stringWithFormat:@"%@", relativePath]];
+        NSString *filename = [[request URL] lastPathComponent];
+
+        NSString *substitutionFilePath =
+        [[NSBundle mainBundle]
+         pathForResource:[filename stringByDeletingPathExtension]
+         ofType:[filename pathExtension]];
+        
+//        NSString *substitutionFilePath = [directory stringByAppendingString: [NSString stringWithFormat:@"%@", relativePath]];
         
         NSData *data = [NSData dataWithContentsOfFile:substitutionFilePath];
 
@@ -544,13 +558,13 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
     
     if (disabled) return [super cachedResponseForRequest:request];
 
-    [CGlobals shared].useCache = NO;
     request = [SDURLCache canonicalRequestForRequest:request];
 
     NSCachedURLResponse *memoryResponse = [super cachedResponseForRequest:request];
     if (memoryResponse)
     {
         [CGlobals shared].useCache = YES;
+        NSLog(@"cachedResponseForRequest: return memory response");
         return memoryResponse;
     }
 
@@ -586,6 +600,7 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
                 if (diskResponse)
                 {
                     [CGlobals shared].useCache = YES;
+                    NSLog(@"cachedResponseForRequest: return saved disk response");
                     return diskResponse;
                 }
             }
