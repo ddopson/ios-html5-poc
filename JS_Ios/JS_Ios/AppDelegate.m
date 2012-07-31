@@ -32,7 +32,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     [CGlobals shared].substitutionPaths = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                           @"foo", @"myserver.com",
+//                                           @"foo", @"myserver.com",
+                                           @"wavii_cached", @"wavii.com",
                                            nil];
     
 //    [self copyResources];

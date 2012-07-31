@@ -130,8 +130,8 @@ static int TAG_BOTTOM = 12;
     
 	if (sc.selectedSegmentIndex==0) {
         _state = STATE_EXT;
-        url = [url stringByAppendingString:@"test2.html"];
-//        url = [@"http://wavii.com/" stringByAppendingString:@""];
+//        url = [url stringByAppendingString:@"test2.html"];
+        url = [@"http://wavii.com/" stringByAppendingString:@""];
     }
     else if (sc.selectedSegmentIndex==1) {
         
@@ -151,7 +151,8 @@ static int TAG_BOTTOM = 12;
     else if (sc.selectedSegmentIndex==2) {
         UIWebView *webView = (UIWebView *)[self.view viewWithTag:TAG_WEB_VIEW];
         _state = STATE_PREDEFINED;
-        url = [@"http://myserver.com/" stringByAppendingString:@"index.html"];
+//        url = [@"http://myserver.com/" stringByAppendingString:@"index.html"];
+        url = [@"http://wavii.com/" stringByAppendingString:@""];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy: NSURLRequestReturnCacheDataDontLoad timeoutInterval:60];
         [webView loadRequest:request];
         return;

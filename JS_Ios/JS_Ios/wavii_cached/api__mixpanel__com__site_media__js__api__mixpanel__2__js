@@ -1,0 +1,10 @@
+var noop = function () { };
+window.mixpanel = {
+  init: noop,
+  track: noop,
+  name_tag: noop,
+  identify: noop,
+  people: {
+    set: noop
+  }
+};
