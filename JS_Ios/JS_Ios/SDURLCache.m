@@ -518,15 +518,35 @@ static NSDateFormatter* CreateDateFormatter(NSString *format)
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request
 {
-    [CGlobals shared].useCache = NO;
+//    [CGlobals shared].useCache = NO;
     
     NSString *pathString = [[request URL] absoluteString];
     NSLog(@"cachedResponseForRequest: url=%@", pathString);
     NSString *baseString = [[request URL] host];
     NSLog(@"cachedResponseForRequest: host=%@", baseString);
-    NSString *relativePath = [[request URL] path];
+//    NSString *relativePath = [[request URL] path];
 	NSString *substitutionFileName = [[CGlobals shared].substitutionPaths objectForKey:baseString];
     NSLog(@"substitutionFileName=%@", substitutionFileName);
+    
+    NSRange range = [pathString rangeOfString: @"data:image/png"];
+    if (range.location != NSNotFound) {
+        NSLog(@"found");
+        
+        NSData *data = [NSData dataWithContentsOfURL:[request URL]];
+        
+        NSURLResponse *response =
+		[[[NSURLResponse alloc]
+          initWithURL:[request URL]
+          MIMEType:@"image/png"
+          expectedContentLength:[data length]
+          textEncodingName:nil]
+         autorelease];
+        NSCachedURLResponse *cachedResponse =
+		[[[NSCachedURLResponse alloc] initWithResponse:response data:data] autorelease];
+        
+        return cachedResponse;
+
+    }
     
     if (substitutionFileName)
 	{

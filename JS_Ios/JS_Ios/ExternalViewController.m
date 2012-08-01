@@ -128,6 +128,8 @@ static int TAG_BOTTOM = 12;
     
     NSString *url = @"http://flashtest.oscdev.com/testimg/";
     
+    [CGlobals shared].useCache = NO;
+    
 	if (sc.selectedSegmentIndex==0) {
         _state = STATE_EXT;
 //        url = [url stringByAppendingString:@"test2.html"];

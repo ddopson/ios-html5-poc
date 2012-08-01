@@ -34,6 +34,7 @@
     [CGlobals shared].substitutionPaths = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 //                                           @"foo", @"myserver.com",
                                            @"wavii_cached", @"wavii.com",
+                                           @"wavil_cached", @"cachedwavii.com",
                                            nil];
     
 //    [self copyResources];
